@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zomato Orders</title>
+    <script>
+        function viewData() {
+            var xml = document.getElementById("xmlData").value;
+            var xsl = document.getElementById("xslData").value;
+
+            var parser = new DOMParser();
+            var xmlData = parser.parseFromString(xml, "text/xml");
+            var xslData = parser.parseFromString(xsl, "text/xml");
+
+            var xsltProcessor = new XSLTProcessor();
+            xsltProcessor.importStylesheet(xslData);
+
+            var result = xsltProcessor.transformToDocument(xmlData);
+            var resultStr = new XMLSerializer().serializeToString(result);
+
+            document.getElementById("output").innerHTML = resultStr;
+        }
+    </script>
+</head>
+<body>
+    <h2>Zomato Orders</h2>
+    <textarea id="xmlData" style="display:none;"><?xml version="1.0" encoding="UTF-8" ?>
+<zomato>
+    <order>
+        <id>01</id>
+        <restorent>idli.com</restorent>
+        <coustemer>jay</coustemer>
+        <item>dosa</item>
+        <cost>30</cost>
+    </order>
+    <order>
+        <id>02</id>
+        <restorent>spice avenue</restorent>
+        <coustemer>sreekar</coustemer>
+        <item>dum biryani</item>
+        <cost>200</cost>
+    </order>
+    <order>
+        <id>03</id>
+        <restorent>alpha</restorent>
+        <coustemer>vijaya</coustemer>
+        <item>fry biryani</item>
+        <cost>230</cost>
+    </order>
+    <order>
+            <id>04</id>
+            <restorent>subway</restorent>
+            <coustemer>ravi</coustemer>
+            <item>chiken tikka</item>
+            <cost>464</cost>
+        </order>
+        <order>
+            <id>05</id>
+            <restorent>sri kitchens</restorent>
+            <coustemer>thoshitha</coustemer>
+            <item>ragi sankati</item>
+            <cost>244</cost>
+        </order>
+        <order>
+            <id>06</id>
+            <restorent>dominos pizza</restorent>
+            <coustemer>nitya</coustemer>
+            <item>pepper barbecue</item>
+            <cost>125</cost>
+        </order>
+        <order>
+            <id>07</id>
+            <restorent>srvani mess</restorent>
+            <coustemer>vijaya</coustemer>
+            <item>chiken fry</item>
+            <cost>250</cost>
+        </order>
+        <order>
+            <id>08</id>
+            <restorent>angels dine</restorent>
+            <coustemer>rishi</coustemer>
+            <item>special chicken biryani</item>
+            <cost>500</cost>
+        </order>
+        <order>
+            <id>09</id>
+            <restorent>kamat</restorent>
+            <coustemer>Aishwarya</coustemer>
+            <item>tandoori chicken</item>
+            <cost>250</cost>
+        </order>
+        <order>
+            <id>10</id>
+            <restorent>alphas</restorent>
+            <coustemer>gowtham</coustemer>
+            <item>paneer biryani</item>
+            <cost>400</cost>
+        </order>
+        <order>
+            <id>11</id>
+            <restorent>sri sairam</restorent>
+            <coustemer>sai</coustemer>
+            <item>dosa</item>
+            <cost>40</cost>
+        </order>
+        <order>
+            <id>12</id>
+            <restorent>chutness</restorent>
+            <coustemer>ganash</coustemer>
+            <item>masala dosa</item>
+            <cost>60</cost>
+        </order>
+        <order>
+            <id>13</id>
+            <restorent>sai durga tiffins</restorent>
+            <coustemer>sandy</coustemer>
+            <item>puri</item>
+            <cost>50</cost>
+        </order>
+        <order>
+            <id>14</id>
+            <restorent>ganash parlour</restorent>
+            <coustemer>Dev</coustemer>
+            <item>bonda</item>
+            <cost>30</cost>
+        </order>
+        <order>
+            <id>15</id>
+            <restorent>lucky tiffins</restorent>
+            <coustemer>Vinay</coustemer>
+            <item>bhajji</item>
+            <cost>20</cost>
+        </order>
+        <order>
+            <id>16</id>
+            <restorent>atharillu</restorent>
+            <coustemer>Siva</coustemer>
+            <item>plain pesara</item>
+            <cost>40</cost>
+        </order>
+        <order>
+            <id>17</id>
+            <restorent>kodapa dosa</restorent>
+            <coustemer>sri</coustemer>
+            <item>perugu vada</item>
+            <cost>99</cost>
+        </order>
+        <order>
+            <id>18</id>
+            <restorent>maa nethi vindu</restorent>
+            <coustemer>lakshmi</coustemer>
+            <item>idli sambar</item>
+            <cost>70</cost>
+        </order>
+        <order>
+            <id>19</id>
+            <restorent>house of sosasa</restorent>
+            <coustemer>dev</coustemer>
+            <item>uppu soda</item>
+            <cost>15</cost>
+        </order>
+        <order>
+            <id>20</id>
+            <restorent>mini cafe</restorent>
+            <coustemer>sameer</coustemer>
+            <item>veg rool</item>
+            <cost>25</cost>
+        </order>
+    </zomato>
+</zomato>
+</textarea>
+    <textarea id="xslData" style="display:none;"><?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:template match="/">
+        <html>
+            <body>
+                <h2>Zomato Orders</h2>
+                <table border="1">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Restaurant</th>
+                        <th>Customer</th>
+                        <th>Item</th>
+                        <th>Cost</th>
+                    </tr>
+                    <xsl:for-each select="zomato/order">
+                        <tr>
+                            <td><xsl:value-of select="id"/></td>
+                            <td><xsl:value-of select="restorent"/></td>
+                            <td><xsl:value-of select="coustemer"/></td>
+                            <td><xsl:value-of select="item"/></td>
+                            <td><xsl:value-of select="cost"/></td>
+                        </tr>
+                    </xsl:for-each>
+                </table>
+            </body>
+        </html>
+    </xsl:template>
+</xsl:stylesheet>
+</textarea>
+    <button onclick="viewData()">View Data</button>
+    <div id="output"></div>
+</body>
+</html>
